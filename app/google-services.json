@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "779747711973",
+    "project_id": "chatapp-4ff7f",
+    "storage_bucket": "chatapp-4ff7f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779747711973:android:a21841c2f0553403afed0c",
+        "android_client_info": {
+          "package_name": "com.example.hierarchicalandroidchatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "779747711973-r6t2vsa3n2b1oc6md8tr74q62sfhfemv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBg8pL9Br-l-xHmnA6lj8vmjlojJEtEKsM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "779747711973-r6t2vsa3n2b1oc6md8tr74q62sfhfemv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

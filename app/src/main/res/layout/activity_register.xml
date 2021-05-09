@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/teal_700"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:background="@color/design_default_color_background"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="textPersonName"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/selectPhotoButton" />
+
+    <EditText
+        android:id="@+id/editTextTextEmailLogAct"
+        android:paddingLeft="16dp"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/design_default_color_background"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+
+    <EditText
+        android:id="@+id/editTextTextPasswordLogAct"
+        android:paddingLeft="16dp"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/design_default_color_background"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTextEmailLogAct"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextEmailLogAct"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailLogAct" />
+
+    <Button
+        android:id="@+id/loginButtonLogAct"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:text="Register"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTextPasswordLogAct"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextPasswordLogAct"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPasswordLogAct" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:text="Already Have an Account?"
+        app:layout_constraintEnd_toEndOf="@+id/loginButtonLogAct"
+        app:layout_constraintStart_toStartOf="@+id/loginButtonLogAct"
+        app:layout_constraintTop_toBottomOf="@+id/loginButtonLogAct" />
+
+    <Button
+        android:id="@+id/selectPhotoButton"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="32dp"
+        android:text="Select Photo"
+        android:background="@drawable/rounded_select_photo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/selectPhotoImageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toBottomOf="@+id/selectPhotoButton"
+        app:layout_constraintEnd_toEndOf="@+id/selectPhotoButton"
+        app:layout_constraintStart_toStartOf="@+id/selectPhotoButton"
+        app:layout_constraintTop_toTopOf="@+id/selectPhotoButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
