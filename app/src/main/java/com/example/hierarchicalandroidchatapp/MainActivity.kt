@@ -116,7 +116,11 @@ class MainActivity : AppCompatActivity() {
 
         val user = User(uid, nameObj.text.toString(), profileImageUrl)
 
-        ref.setValue(user)
+        ref.setValue(user).addOnSuccessListener {
+            val intent = Intent(this, LatestMessagesActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
     }
 
     private fun reload(){
