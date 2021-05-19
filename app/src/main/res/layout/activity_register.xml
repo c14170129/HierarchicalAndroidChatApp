@@ -26,7 +26,6 @@
 
     <EditText
         android:id="@+id/editTextTextEmailLogAct"
-        android:paddingLeft="16dp"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
@@ -34,13 +33,13 @@
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
+        android:paddingLeft="16dp"
         app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
         app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 
     <EditText
         android:id="@+id/editTextTextPasswordLogAct"
-        android:paddingLeft="16dp"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
@@ -48,6 +47,7 @@
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
+        android:paddingLeft="16dp"
         app:layout_constraintEnd_toEndOf="@+id/editTextTextEmailLogAct"
         app:layout_constraintStart_toStartOf="@+id/editTextTextEmailLogAct"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailLogAct" />
@@ -77,8 +77,8 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="32dp"
-        android:text="Select Photo"
         android:background="@drawable/rounded_select_photo"
+        android:text="Select Photo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

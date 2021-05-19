@@ -5,29 +5,31 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Parcel
+import android.os.Parcelable
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var nameObj : EditText
-    private lateinit var emailObj : EditText
-    private lateinit var passwordObj  : EditText
-    private lateinit var registerButton : Button
-    private lateinit var loginButton : Button
-    private lateinit var selectPhotoButton : Button
-    private lateinit var userCirclePhoto : CircleImageView
-    private lateinit var auth : FirebaseAuth
+    private lateinit var nameObj: EditText
+    private lateinit var emailObj: EditText
+    private lateinit var passwordObj: EditText
+    private lateinit var registerButton: Button
+    private lateinit var loginButton: Button
+    private lateinit var selectPhotoButton: Button
+    private lateinit var userCirclePhoto: CircleImageView
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         auth = Firebase.auth
 
         val currentUser = auth.currentUser
-        if(currentUser != null){
+        if (currentUser != null) {
             reload()
         }
 
@@ -69,7 +71,7 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null) {
+        if (requestCode == 0 && resultCode == RESULT_OK && data != null) {
             selectedPhotoUri = data.data
             val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, selectedPhotoUri)
 
@@ -123,10 +125,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun reload(){
+    private fun reload() {
         finish();
         startActivity(intent)
     }
 }
 
-class User(val uid: String, val username: String, val profileImageUrl: String)
+@Parcelize
+class User(val uid: String?, val username: String?, val profileImageUrl: String?) : Parcelable {
+    constructor() : this("", "", "")
+}
