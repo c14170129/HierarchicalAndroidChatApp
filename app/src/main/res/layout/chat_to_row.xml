@@ -15,11 +15,13 @@
         android:maxWidth="240dp"
         android:padding="16dp"
         android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/profileFromImageView"
-        app:layout_constraintTop_toTopOf="@+id/profileFromImageView" />
+        app:layout_constraintEnd_toStartOf="@+id/profileToImageView"
+        app:layout_constraintTop_toTopOf="@+id/profileToImageView" />
 
-    <ImageView
-        android:id="@+id/profileFromImageView"
+    <de.hdodenhof.circleimageview.CircleImageView
+        app:civ_border_width="2dp"
+        app:civ_border_color="@android:color/black"
+        android:id="@+id/profileToImageView"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"

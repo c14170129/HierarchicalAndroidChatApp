@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -12,6 +13,8 @@ import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupieAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
@@ -22,6 +25,7 @@ class ChatLogActivity : AppCompatActivity() {
     }
 
     val adapterChatLog = GroupieAdapter()
+    var toUser: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,9 +33,9 @@ class ChatLogActivity : AppCompatActivity() {
 
         findViewById<RecyclerView>(R.id.chatLogRecView).adapter = adapterChatLog
 
-        val user = intent.getParcelableExtra<User>(NewMessageActivity.USER_KEY)
+        toUser = intent.getParcelableExtra<User>(NewMessageActivity.USER_KEY)
 //        val username = intent.getStringExtra((NewMessageActivity.USER_KEY))
-        supportActionBar?.title = user?.username
+        supportActionBar?.title = toUser?.username
 
 //        setupDummyData()
 
@@ -44,7 +48,10 @@ class ChatLogActivity : AppCompatActivity() {
     }
 
     private fun listenForMessages() {
-        val ref = FirebaseDatabase.getInstance().getReference("/messages")
+        val fromId = FirebaseAuth.getInstance().uid
+        val toId = toUser?.uid
+//        val ref = FirebaseDatabase.getInstance().getReference("/messages")
+        val ref = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId")
 
         ref.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
@@ -52,9 +59,10 @@ class ChatLogActivity : AppCompatActivity() {
 
                 if (chatMessage != null) {
                     if (chatMessage.fromId == FirebaseAuth.getInstance().uid) {
-                        adapterChatLog.add(ChatFromItem(chatMessage.text))
+                        val currentUser = LatestMessagesActivity.currentUser ?: return
+                        adapterChatLog.add(ChatFromItem(chatMessage.text, currentUser))
                     } else {
-                        adapterChatLog.add(ChatToItem(chatMessage.text))
+                        adapterChatLog.add(ChatToItem(chatMessage.text, toUser!!))
                     }
                 }
             }
@@ -93,32 +101,46 @@ class ChatLogActivity : AppCompatActivity() {
 
         if (fromId == null || toId == null) return
 
-        val reference = FirebaseDatabase.getInstance().getReference("/messages").push()
+//        val reference = FirebaseDatabase.getInstance().getReference("/messages").push()
+        val reference =
+            FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId").push()
+        val toReference =
+            FirebaseDatabase.getInstance().getReference("/user-messages/$toId/$fromId").push()
         val chatMessage =
             ChatMessage(reference.key!!, textMessage, fromId, toId, System.currentTimeMillis())
-        reference.setValue(chatMessage)
+
+        reference.setValue(chatMessage).addOnSuccessListener {
+            findViewById<EditText>(R.id.messageTextField).text.clear()
+            findViewById<RecyclerView>(R.id.chatLogRecView).scrollToPosition(adapterChatLog.itemCount - 1)
+        }
+        toReference.setValue(chatMessage)
     }
 
     private fun setupDummyData() {
         val adapter = GroupieAdapter()
 
-        adapter.add(ChatFromItem("WOWOWOWOW"))
-        adapter.add(ChatToItem("HAOHAOHAO\nHAOHAOHAO"))
-        adapter.add(ChatFromItem("WOWOWOWOW"))
-        adapter.add(ChatToItem("HAOHAOHAO\nHAOHAOHAO"))
-        adapter.add(ChatFromItem("WOWOWOWOW"))
-        adapter.add(ChatToItem("HAOHAOHAO\nHAOHAOHAO"))
-        adapter.add(ChatFromItem("WOWOWOWOW"))
-        adapter.add(ChatToItem("HAOHAOHAO\nHAOHAOHAO"))
+//        adapter.add(ChatFromItem("WOWOWOWOW"))
+//        adapter.add(ChatToItem("HAOHAOHAO\nHAOHAOHAO"))
+//        adapter.add(ChatFromItem("WOWOWOWOW"))
+//        adapter.add(ChatToItem("HAOHAOHAO\nHAOHAOHAO"))
+//        adapter.add(ChatFromItem("WOWOWOWOW"))
+//        adapter.add(ChatToItem("HAOHAOHAO\nHAOHAOHAO"))
+//        adapter.add(ChatFromItem("WOWOWOWOW"))
+//        adapter.add(ChatToItem("HAOHAOHAO\nHAOHAOHAO"))
 
         val recyclerViewChatLog = findViewById<RecyclerView>(R.id.chatLogRecView)
         recyclerViewChatLog.adapter = adapter
     }
 }
 
-class ChatFromItem(private val textChat: String) : Item<GroupieViewHolder>() {
+class ChatFromItem(private val textChat: String, private val user: User) :
+    Item<GroupieViewHolder>() {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.itemView.findViewById<TextView>(R.id.fromMessageTextView).text = textChat
+
+        val uri = user.profileImageUrl
+        val targetImageView = viewHolder.itemView.findViewById<ImageView>(R.id.profileFromImageView)
+        Picasso.get().load(uri).into(targetImageView)
     }
 
     override fun getLayout(): Int {
@@ -126,9 +148,13 @@ class ChatFromItem(private val textChat: String) : Item<GroupieViewHolder>() {
     }
 }
 
-class ChatToItem(private val textChat: String) : Item<GroupieViewHolder>() {
+class ChatToItem(private val textChat: String, private val user: User) : Item<GroupieViewHolder>() {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.itemView.findViewById<TextView>(R.id.toMessageTextView).text = textChat
+
+        val uri = user.profileImageUrl
+        val targetImageView = viewHolder.itemView.findViewById<ImageView>(R.id.profileToImageView)
+        Picasso.get().load(uri).into(targetImageView)
     }
 
     override fun getLayout(): Int {
