@@ -18,6 +18,7 @@ import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupieAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
+import kotlinx.android.synthetic.main.activity_chat_log.*
 
 class ChatLogActivity : AppCompatActivity() {
     companion object {
@@ -65,6 +66,8 @@ class ChatLogActivity : AppCompatActivity() {
                         adapterChatLog.add(ChatToItem(chatMessage.text, toUser!!))
                     }
                 }
+
+                chatLogRecView.scrollToPosition(adapterChatLog.itemCount - 1)
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
@@ -114,6 +117,14 @@ class ChatLogActivity : AppCompatActivity() {
             findViewById<RecyclerView>(R.id.chatLogRecView).scrollToPosition(adapterChatLog.itemCount - 1)
         }
         toReference.setValue(chatMessage)
+
+        val latestMessagesRef =
+            FirebaseDatabase.getInstance().getReference("/latest-messages/$fromId/$toId")
+        latestMessagesRef.setValue(chatMessage)
+
+        val latestMessagesToRef =
+            FirebaseDatabase.getInstance().getReference("/latest-messages/$toId/$fromId")
+        latestMessagesToRef.setValue(chatMessage)
     }
 
     private fun setupDummyData() {
