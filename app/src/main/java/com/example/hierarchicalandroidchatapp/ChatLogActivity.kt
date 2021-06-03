@@ -19,6 +19,8 @@ import com.xwray.groupie.GroupieAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_chat_log.*
+import kotlinx.android.synthetic.main.chat_from_row.view.*
+import kotlinx.android.synthetic.main.chat_to_row.view.*
 
 class ChatLogActivity : AppCompatActivity() {
     companion object {
@@ -148,6 +150,7 @@ class ChatFromItem(private val textChat: String, private val user: User) :
     Item<GroupieViewHolder>() {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.itemView.findViewById<TextView>(R.id.fromMessageTextView).text = textChat
+        viewHolder.itemView.fromUsernameTextView.text = user.username
 
         val uri = user.profileImageUrl
         val targetImageView = viewHolder.itemView.findViewById<ImageView>(R.id.profileFromImageView)
@@ -162,6 +165,7 @@ class ChatFromItem(private val textChat: String, private val user: User) :
 class ChatToItem(private val textChat: String, private val user: User) : Item<GroupieViewHolder>() {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.itemView.findViewById<TextView>(R.id.toMessageTextView).text = textChat
+        viewHolder.itemView.toUsernameTextView.text = user.username
 
         val uri = user.profileImageUrl
         val targetImageView = viewHolder.itemView.findViewById<ImageView>(R.id.profileToImageView)

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/teal_200"
+    tools:context=".addGroupDetailsActivity">
+
+    <EditText
+        android:id="@+id/createGroupEditText"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        android:background="@color/design_default_color_background"
+        android:ems="10"
+        android:hint="Enter Group Name"
+        android:inputType="textPersonName"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/groupPhotoButton" />
+
+    <EditText
+        android:id="@+id/groupDescriptionEditText"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        android:maxLength="120"
+        android:background="@color/design_default_color_background"
+        android:ems="10"
+        android:gravity="start"
+        android:hint="Group Description Here"
+        android:inputType="textCapSentences|textMultiLine"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/createGroupEditText"
+        app:layout_constraintStart_toStartOf="@+id/createGroupEditText"
+        app:layout_constraintTop_toBottomOf="@+id/createGroupEditText" />
+
+    <Button
+        android:id="@+id/groupCreateButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Create"
+        app:layout_constraintEnd_toEndOf="@+id/groupDescriptionEditText"
+        app:layout_constraintStart_toStartOf="@+id/groupDescriptionEditText"
+        app:layout_constraintTop_toBottomOf="@+id/groupDescriptionEditText" />
+
+    <Button
+        android:id="@+id/groupPhotoButton"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_button"
+        android:text="Group Photo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/groupPhotoImageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toBottomOf="@+id/groupPhotoButton"
+        app:layout_constraintEnd_toEndOf="@+id/groupPhotoButton"
+        app:layout_constraintStart_toStartOf="@+id/groupPhotoButton"
+        app:layout_constraintTop_toTopOf="@+id/groupPhotoButton" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

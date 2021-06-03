@@ -86,8 +86,9 @@ class MainActivity : AppCompatActivity() {
     private fun performRegister() {
         val email: String = emailObj.text.toString()
         val password: String = passwordObj.text.toString()
+        val tempPhoto: String = selectedPhotoUri.toString()
 
-        if (email.isEmpty() || password.isEmpty()) {
+        if (email.isEmpty() || password.isEmpty() || tempPhoto.isEmpty()) {
             Toast.makeText(this, "PLease enter text in email/pw", Toast.LENGTH_SHORT).show()
             return
         }

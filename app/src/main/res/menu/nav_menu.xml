@@ -5,10 +5,15 @@
     <item
         android:id="@+id/menu_sign_out"
         android:title="Sign Out"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/menu_new_message"
         android:title="New Message"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_group_list"
+        android:title="Group List"
+        app:showAsAction="never" />
 </menu>
